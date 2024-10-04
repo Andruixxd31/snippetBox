@@ -2,12 +2,14 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 	"strconv"
-	"text/template"
 )
 
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Server", "Go")
+
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
 		return
@@ -55,6 +57,6 @@ func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request) {
-    w.WriteHeader(201)
-    w.Write([]byte("Save a new snippet..."))
+	w.WriteHeader(201)
+	w.Write([]byte("Save a new snippet..."))
 }
