@@ -36,8 +36,9 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
-	id, err := strconv.Atoi(r.URL.Query().Get("id"))
+	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil || id < 1 {
+		app.errorLog.Println(err.Error())
 		http.NotFound(w, r)
 		return
 	}
@@ -57,6 +58,6 @@ func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(201)
+	w.WriteHeader(201) // WriteHeader can only be called once in a method
 	w.Write([]byte("Save a new snippet..."))
 }
