@@ -29,9 +29,10 @@ func main() {
 	fileServer := http.FileServer(http.Dir("../../ui/static/"))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
 
-	mux.HandleFunc("/", app.home)
-	mux.HandleFunc("/snippet/view", app.snippetView)
-	mux.HandleFunc("/snippet/create", app.snippetCreate)
+	mux.HandleFunc("GET /{$}", app.home)
+	mux.HandleFunc("GET /snippet/view/{id}", app.snippetView) 
+  mux.HandleFunc("GET /snippet/create", app.snippetCreate)
+  mux.HandleFunc("POST /snippet/create", app.snippetCreatePost)
 
 	srv := &http.Server{
 		Addr:     *addr,

@@ -53,3 +53,8 @@ func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Write([]byte("Create a new snippet"))
 }
+
+func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request) {
+    w.WriteHeader(201)
+    w.Write([]byte("Save a new snippet..."))
+}
