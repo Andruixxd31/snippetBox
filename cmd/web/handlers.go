@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -43,7 +42,8 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "Display specific snippet with id: %d", id)
+	w.Header().Set("Content-type", "application/json")
+	w.Write([]byte(`{"status:"Success", "message":"snippet obtained"}`))
 }
 
 func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
@@ -54,10 +54,13 @@ func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
-	w.Write([]byte("Create a new snippet"))
+
+	w.Header().Set("Content-type", "application/json")
+	w.Write([]byte(`{"status:"Success", "message":"Create a new snippet"}`))
 }
 
 func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(201) // WriteHeader can only be called once in a method
-	w.Write([]byte("Save a new snippet..."))
+	w.Header().Set("Content-type", "application/json")
+	w.Write([]byte(`{"status:"Success", "message":"snippet created"}`))
 }
